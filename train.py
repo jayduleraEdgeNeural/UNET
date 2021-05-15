@@ -105,7 +105,7 @@ def dice_loss(onehots_true, logits):
     return loss
 
 def main()
-	with open(args.config, 'r') as f:
+    with open(args.config, 'r') as f:
         yam = yaml.load(f)
     img_path = yam['img_path']
     mask_path = yam['mask_path']
@@ -114,13 +114,13 @@ def main()
     start_neurons = yam['start_neurons']
     batch_size = yam['batch_size']
     get_custom_objects().update({'lrelu': Activation(tf.keras.layers.LeakyReLU(alpha=0.3))})
-	train_generator = directory_to_generator(img_path , mask_path , image_size)
-	steps_per_epoch = int( np.ceil(train_generator.shape[0] / batch_size) )
-	input_layer = Input((image_size, image_size, 3))
-	output_layer = build_model(input_layer, start_neurons)
-	model = Model(input_layer, output_layer)
-	model.compile(loss = dice_loss, optimizer='adam', metrics=["accuracy"])
-	model.fit(train_generator , epochs = epochs , steps_per_epoch = steps_per_epoch , batch_size = batch_size)
+    train_generator = directory_to_generator(img_path , mask_path , image_size)
+    steps_per_epoch = int( np.ceil(train_generator.shape[0] / batch_size) )
+    input_layer = Input((image_size, image_size, 3))
+    output_layer = build_model(input_layer, start_neurons)
+    model = Model(input_layer, output_layer)
+    model.compile(loss = dice_loss, optimizer='adam', metrics=["accuracy"])
+    model.fit(train_generator , epochs = epochs , steps_per_epoch = steps_per_epoch , batch_size = batch_size)
 
 if __name__ == "__main__":
     main()
