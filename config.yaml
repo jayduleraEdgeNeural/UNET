@@ -1,0 +1,10 @@
+
+
+img_path: '/content/Image/',
+mask_path: '/content/Mask/',
+epochs: 1,
+image_size: 256,
+start_neurons: 16,
+loss: "binary_crossentropy",
+optimizer: 'adam'
+steps_per_epoch: 20
